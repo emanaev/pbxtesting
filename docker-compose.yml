@@ -1,0 +1,30 @@
+version: '3'
+networks:
+  default:
+    name: test # SIPSIMPLE can't dial xxx@pbx, only xxx@pbx.something
+
+services:
+  pbx:
+    image: emanaev/yate
+    build:
+      context: .
+      dockerfile: Dockerfile.yate
+    volumes:
+      - ./yate:/usr/local/etc/yate:ro
+    command: ["yate", "-v"]
+  client1:
+    image: emanaev/sipsimple
+    build: sipsimple
+    environment:
+      SIP_USER: 112
+      SIP_PASSWORD: test
+      SIP_SERVER: pbx.test
+    command: ["/sipsimple.sh", "--auto-answer"]
+  client2:
+    image: emanaev/sipsimple
+    build: sipsimple
+    environment:
+      SIP_USER: 9161234567
+      SIP_PASSWORD: test
+      SIP_SERVER: pbx.test
+    command: ["/sipsimple.sh", "--auto-hangup", "5", "112@pbx.test"]
