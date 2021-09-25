@@ -1,3 +1,4 @@
+# the code is based on https://tbrink.science/blog/2017/04/30/processing-the-output-of-a-subprocess-with-python-in-realtime/
 import errno
 import os
 import pty

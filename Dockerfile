@@ -26,7 +26,8 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y python3 python-sipsimple sipclients && \
     rm -rf /var/lib/apt/lists/*
-RUN sip-settings -a add 9164440001@pbx.test test
-RUN sip-settings -a add 112@pbx.test test
-COPY *.py /
-CMD ["python3", "test.py"]
+
+WORKDIR /usr/src/app
+COPY . .
+RUN test/prepare.sh
+CMD ["python3", "test/test.py"]

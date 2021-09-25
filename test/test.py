@@ -1,7 +1,6 @@
 from monitor import Monitor
 import unittest
 import re
-import codecs
 
 
 class TestStringMethods(unittest.TestCase):
